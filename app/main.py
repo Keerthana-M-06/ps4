@@ -1,12 +1,7 @@
 from fastapi import FastAPI
 
-app = FastAPI(
-    title="Creator Content Optimization System"
-)
+app = FastAPI()
 
 @app.get("/")
 def home():
-
-    return {
-        "message": "PS4 Backend Running"
-    }
+    return {"message": "Server running"}

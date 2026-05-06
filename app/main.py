@@ -45,3 +45,6 @@ metrics = evaluate_results(results)
 print(f"Total processed: {len(results)}")
 
 print(metrics)
+for result in results:
+
+    print(result)

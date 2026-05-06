@@ -10,6 +10,8 @@ from app.database.db import (
     insert_recommendation,
 )
 
+from app.engine.recommender import generate_recommendation
+
 router = APIRouter()
 
 
@@ -19,33 +21,6 @@ router = APIRouter()
 @router.get("/health")
 def health_check():
     return {"status": "API working"}
-
-
-# ---------------------------------
-# TEMP DUMMY ENGINE FUNCTION
-# PERSON 1 WILL REPLACE THIS
-# ---------------------------------
-def generate_recommendation(content):
-
-    if content.content_type == "SHORT":
-        platform = "Instagram"
-        time_slot = 20
-    else:
-        platform = "YouTube"
-        time_slot = 21
-
-    decision = (
-        "POST_NOW"
-        if content.created_timestamp == time_slot
-        else "SCHEDULE"
-    )
-
-    return {
-        "content_id": content.content_id,
-        "platform": platform,
-        "time_slot": time_slot,
-        "decision": decision,
-    }
 
 
 # ---------------------------------

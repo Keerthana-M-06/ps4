@@ -7,9 +7,10 @@ def generate_recommendation(content, lookups):
     content_type = content["content_type"]
     created_timestamp = content["created_timestamp"]
 
-    creator_lookup = lookups["creator"]
-    activity_lookup = lookups["activity"]
-    history_lookup = lookups["history"]
+    # correct lookup keys
+    creator_lookup = lookups["creator_lookup"]
+    activity_lookup = lookups["activity_lookup"]
+    history_lookup = lookups["history_lookup"]
 
     base_engagement = creator_lookup.get(creator_id, 1.0)
 

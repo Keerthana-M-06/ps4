@@ -1,4 +1,6 @@
-from app.engine.recommender import generate_recommendation
+from app.engine.recommender import (
+    generate_recommendation
+)
 
 def process_batch(batch, lookups):
 
@@ -6,17 +8,15 @@ def process_batch(batch, lookups):
 
     for content in batch:
 
-        result = {
+        recommendation = generate_recommendation(
+            content,
+            lookups
+        )
 
-            "content_id": content["content_id"],
+        recommendation["content_id"] = (
+            content["content_id"]
+        )
 
-            "platform": "Instagram",
-
-            "time_slot": 20,
-
-            "decision": "SCHEDULE"
-        }
-
-        results.append(result)
+        results.append(recommendation)
 
     return results

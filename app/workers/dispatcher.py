@@ -2,6 +2,7 @@ from app.workers.worker import process_batch
 
 def dispatch_tasks(
     contents,
+    lookups,
     batch_size=100
 ):
 
@@ -18,11 +19,12 @@ def dispatch_tasks(
 
     all_results = []
 
-    for idx, batch in enumerate(batches):
+    for batch in batches:
 
-        print(f"Processing batch {idx+1}")
-
-        results = process_batch(batch)
+        results = process_batch(
+            batch,
+            lookups
+        )
 
         all_results.extend(results)
 

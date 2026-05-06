@@ -1,13 +1,20 @@
-def process_batch(batch):
+from app.engine.recommender import generate_recommendation
+
+def process_batch(batch, lookups):
 
     results = []
 
     for content in batch:
 
         result = {
+
             "content_id": content["content_id"],
-            "creator_id": content["creator_id"],
-            "status": "processed"
+
+            "platform": "Instagram",
+
+            "time_slot": 20,
+
+            "decision": "SCHEDULE"
         }
 
         results.append(result)

@@ -1,20 +1,45 @@
 from fastapi import FastAPI
+
+from app.api.routes import router
+from app.database.db import create_tables
+
 from app.data.loader import load_datasets
 from app.data.preprocess import create_lookup_maps
-from app.workers.dispatcher import dispatch_tasks
-from app.evaluator.metrics import evaluate_results
 
+
+# ---------------------------------
+# LOAD DATASETS ON STARTUP
+# ---------------------------------
 data = load_datasets()
 
 lookups = create_lookup_maps(data)
 
-contents = data["content"].to_dict(
-    orient="records"
+
+# ---------------------------------
+# FASTAPI APP
+# ---------------------------------
+app = FastAPI(
+    title="Content Posting Optimization System"
 )
 
-results = dispatch_tasks(contents)
 
-print(results[:100])
-metrics = evaluate_results(results)
+# ---------------------------------
+# CREATE DATABASE TABLES
+# ---------------------------------
+create_tables()
 
-print(metrics)
+
+# ---------------------------------
+# INCLUDE ROUTES
+# ---------------------------------
+app.include_router(router)
+
+
+# ---------------------------------
+# ROOT ENDPOINT
+# ---------------------------------
+@app.get("/")
+def home():
+    return {
+        "message": "Server running successfully"
+    }
